@@ -14,14 +14,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* 화면 높이에 꽉 차게 */
+            height: 100vh;
         }
         
         .dashboard { 
-            width: 95vw; /* 화면 너비의 95% */
+            width: 95vw; 
             background: rgba(15, 15, 15, 0.9); 
             border-radius: 1vw; 
-            padding: 2vw; 
+            padding: 1.5vw; 
             box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.5);
         }
 
@@ -30,34 +30,44 @@
             justify-content: space-between; 
             align-items: center; 
             background: #222; 
-            margin-bottom: 1.5vh; 
-            padding: 1.5vh 4vw; 
-            border-radius: 1vw; 
+            margin-bottom: 1vh; 
+            padding: 1vh 3.5vw; 
+            border-radius: 0.8vw; 
         }
         
         .blue-team { border-left: 0.8vw solid #3498db; }
         .red-team { border-left: 0.8vw solid #ff5e5e; }
         
-        /* 글자 크기를 vw(화면 너비 비례) 단위로 설정 */
         .player-name { 
-            font-size: 5.5vw; 
+            font-size: 5vw; 
             font-weight: bold; 
             color: #ddd; 
             white-space: nowrap; 
         }
         
         .score-box { 
-            font-size: 6vw; 
+            font-size: 5.5vw; 
             font-weight: 800; 
         }
         
         .win-val { color: #4da3ff; margin-right: 2vw; }
         .loss-val { color: #ff5e5e; }
+
+        /* 하단 상태창 스타일 */
+        #status { 
+            font-size: 2.5vw; 
+            color: #555; 
+            text-align: right; 
+            margin-top: 0.5vh;
+            padding-right: 1vw;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <div id="player-list"></div>
+        <div id="status">데이터 연결 중...</div>
     </div>
 
     <script>
@@ -112,7 +122,12 @@
                         </div>`;
                 }
                 document.getElementById('player-list').innerHTML = html;
-            } catch (e) { console.error(e); }
+                document.getElementById('status').innerText = "Update: " + new Date().toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit' });
+            } catch (e) { 
+                console.error(e); 
+                document.getElementById('status').innerText = "API 오류 발생";
+                document.getElementById('status').style.color = "#ff5e5e";
+            }
         }
 
         updateScores();
