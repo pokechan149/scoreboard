@@ -53,7 +53,6 @@
         .win-val { color: #4da3ff; margin-right: 2vw; }
         .loss-val { color: #ff5e5e; }
 
-        /* 하단 상태창 스타일 */
         #status { 
             font-size: 2.5vw; 
             color: #555; 
@@ -122,7 +121,16 @@
                         </div>`;
                 }
                 document.getElementById('player-list').innerHTML = html;
-                document.getElementById('status').innerText = "Update: " + new Date().toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit' });
+                
+                // 초 단위까지 포함된 시간 포맷 (HH:mm:ss)
+                const timeString = new Date().toLocaleTimeString('ko-KR', { 
+                    hour12: false, 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit' 
+                });
+                document.getElementById('status').innerText = "Update: " + timeString;
+                document.getElementById('status').style.color = "#555";
             } catch (e) { 
                 console.error(e); 
                 document.getElementById('status').innerText = "API 오류 발생";
@@ -131,7 +139,7 @@
         }
 
         updateScores();
-        setInterval(updateScores, 30000);
+        setInterval(updateScores, 40000);
     </script>
 </body>
 </html>
